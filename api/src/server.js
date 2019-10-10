@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const path = require('path');
 
 const routes = require('./routes');
 
@@ -7,13 +9,18 @@ const routes = require('./routes');
 const app = express();
 
 // config do MongoDB
-mongoose.connect('mongodb+srv://user:password@omnistack-hak04.mongodb.net/aircnc?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://llanca:G@fanhoto86@omnistack-hak04.mongodb.net/aircnc?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
 
+// Permite acesso a api
+app.use(cors());
+
 // ler formato JSON
 app.use(express.json());
+
+app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
 
 // inicia as rotas
 app.use(routes);
